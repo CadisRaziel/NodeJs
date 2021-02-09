@@ -67,3 +67,57 @@ console.log(moduloB)
 // para instalar = npm i -g nodemon
 //para remover as restrições de script e rodar no nodemon, abra o powershell e cole Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//agora vamos exportar os arquivos dos modulos
+//arquivo criado de nome: Exportar.js
+
+//tudo isso abaixo exporta para fora
+this.a = 1
+exports.b = 2
+module.exports.c = 3
+
+
+//mesmo eu definindo um novo objeto para exports ele não vai ser alterado
+exports = {
+    nome: 'Vitor'
+}
+
+//para eu atribuir um novo objeto tem que ser usado o module.exports
+module.exports = {
+    public: true
+}
+
+
+
+
+//modulo criado para receber os arquivos 
+//arquivo criado de nome: ExportarClientes.js
+const exportar = require('./Exportar')
+console.log(exportar)
+
