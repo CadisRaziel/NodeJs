@@ -1,0 +1,69 @@
+Criei 2 arquivos.js
+ModuloA
+ModuloB
+
+e vou colocar como exporta arquivo do moduloA para o moduloB
+
+
+// Em node um arquivo represenda um modulo !!!! 
+//modulo = Não deixa tudo o que escreve dentro dele disponivel para todo mundo
+//para deixar publico é necessario export e import
+//no modulo podemos criar varios codigos mais só fica visivel dentro do codigo
+
+//todos os exemplos de fundamentos, arrays, função, objetos são modulos do node !! 
+
+//resumindo tudo que exportamos do modulo estara visivel para fora, então outro arquivo podera usa-lo
+
+
+
+
+
+
+//exemplo: Vamos fazer algumas forma de exporta algo de dentro de um modulo node para ser usado em outro arquivo
+this.ola = 'Fala pessoal' //usando o this (this objeto)
+exports.BemVindo = 'Bem vindo ao node' // usando exports (this objeto)
+module.exports.AlgumaCoisa = 'Até logo' //usando module.exports (module objeto)
+
+
+//forma diferente dos 3 exemplos do ModuloA
+module.exports = {
+    BomDia: 'Bom dia vitor',
+    BoaNoite() {
+        return 'Boa noite vitor'
+    }
+}
+
+//EXPORTANDO
+
+const moduloA = require('./moduloA.js') //na mesma pasta é necessario por ./
+const moduloB = require('./moduloB.js') // ../js../modulo = sai de duas pastas
+//Observação a extensão .js é usada apenas em modulos de terceiros, no nosso modulo não é necessario por
+//porém por padrão vamos colocar
+
+console.log(moduloA.ola)
+console.log(moduloA.BemVindo)
+console.log(moduloA.AlgumaCoisa)
+console.log(moduloA)
+
+console.log(moduloB.BomDia)
+console.log(moduloB.BoaNoite())
+console.log(moduloB)
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPM = gerenciados de pacotes do node
+//Instalando lodash = va no terminal e digite npm i lodash
+//instalando o nodemon (o nodemon fica executando o program e se der erro ele nao vai crashar)
+// para instalar = npm i -g nodemon
+//para remover as restrições de script e rodar no nodemon, abra o powershell e cole Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
