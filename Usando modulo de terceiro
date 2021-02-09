@@ -1,0 +1,14 @@
+//lodash e nodemon é uma biblioteca de terceiros !! 
+
+const _ = require('lodash')
+setInterval(() => console.log(_.random(1, 40)), 1000)
+
+
+
+//NPM = gerenciados de pacotes do node
+//Instalando lodash = va no terminal e digite npm i lodash
+
+
+//instalando o nodemon (o nodemon fica executando o program e se der erro ele nao vai crashar)
+// para instalar = npm i -g nodemon
+//para remover as restrições de script e rodar no nodemon, abra o powershell e cole Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
