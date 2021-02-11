@@ -1,0 +1,14 @@
+// criamos um modulo para criar a função com parametros (uma função que vai retornar)
+
+//retornando uma função !!
+module.exports = function (...nomes) {
+    return nomes.map(nome => `Boa semana ${nome}!`)
+}
+
+//=================================================
+
+//criamos um modulo que vai receber a função com parametros 
+
+const saudacoes = require('./PassandoParametro')('Ana', 'Lucas', 'Joao')
+ //repare que os parametros eu coloco depois do nome da pasta "('./PassandoParametro')""  parametros = ('Ana', 'Lucas', 'Joao')
+console.log(saudacoes)
