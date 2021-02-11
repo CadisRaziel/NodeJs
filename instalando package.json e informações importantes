@@ -1,0 +1,81 @@
+//pegando dados de um site de terceiro com package-json
+
+const url = 'http://files.cod3r.com.br/curso-js/funcionarios.json' //essa url esta no servidor da cod3r
+const axios = require('axios')
+//axios é um client http, ele faz requisiçoes para obter informações de algo que esta remoto 
+
+axios.get(url).then(response => {
+    const funcionarios = response.data 
+    console.log(funcionarios)
+})
+
+
+
+
+//tutorial !! 
+Para instalar o package.json faça o seguinte 
+crie uma pasta, e acesse ela via terminal
+PS C:\Users\vitor\Desktop\exerciciosJS> cd node
+PS C:\Users\vitor\Desktop\exerciciosJS\node> cd funcionarios
+
+
+
+//em seguida coloque npn init (para dar sim para todos coloque npm init -y)
+PS C:\Users\vitor\Desktop\exerciciosJS\node\funcionarios> npm init
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+
+//aperte o enter para ir confirmando as sessões e va preenchendo de acordo com o que voce precisa
+Press ^C at any time to quit.
+package name: (funcionarios)
+version: (1.0.0)
+description: Aula sobre package json
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author: Vitor Brussolo zerbato
+license: (ISC) Apache
+Sorry, license should be a valid SPDX license expression (without "LicenseRef"), "UNLICENSED", or "SEE LICENSE IN <filename>" and license is similar to the valid expression "Apache-2.0".
+license: (ISC)
+About to write to C:\Users\vitor\Desktop\exerciciosJS\node\funcionarios\package.json:
+
+
+//no final ele vai criar o package.json dentro da sua pasta criada(que no caso a minha foi funcionarios)
+{
+  "name": "funcionarios",
+  "version": "1.0.0",
+  "description": "Aula sobre package json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vitor Brussolo zerbato",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes)
+
+
+//quando eu for adicionar modulos de terceiro ele vai criar a pasta node_modules
+//porém preste ateção porque se eu instalar um npm de terceiro agora ele vai criar a pasta node_module dentro
+// da pasta funcionarios !!!!!
+
+//se eu colocar npm i --save ele vai instalar todas dependencias no node_module dentro da pasta de funcionairos
+// e vai criar uma area para salvar as dependencias 
+
+
+//instalando a dependencia axios (npn i --save axios)
+
+
+versão do package.json, tome muito cuidado pois pode ocasionar bugs se sua versão e diferente com de quem te ajuda
+"axios": "^0.21.1"
+ ^ = ele só vai pegar as versões 0."21".1, ou seja só vai alterar as versoes com ""
+~~ = ele só vai pegar as versóes 0.21."1" ou seja só vai altear as versoes com ""
+"axios": "0.21.1" = sem ^ ou ~ ele trava nessa versão
+
