@@ -1,0 +1,21 @@
+// O this aponta para module.exports !!!!
+console.log(this === global) // = false pois ele aponta para module.exports
+console.log(this === module) // false por this é um objeto
+
+console.log(this === module.exports) // esta correto
+console.log(this === exports) // esta correto
+
+
+function logThis() {
+    console.log('Dentro de uma função...');
+    console.log(this === exports) //dentro de uma função o this não aponta para exports CUIDADO !!
+    console.log(this === module.exports) // //dentro de uma função o this não aponta para module.exports CUIDADO !!
+    console.log(this === global) //dentro da função o THIS aponta SÒ PARA GLOBAL !! CUIDADO 
+
+    this.perigo = '...'//cuidado que ao fazer isso dentro da função ele aponta para global !!
+}
+logThis()
+this.perigo = '...' // o this fora da função ele aponta para module.exports 
+
+//RESUMINDO O THIS DENTRO DE UMA FUNÇÂO ELE APONTA PARA GLOBAL !!!!
+// O THIS FORA DE UMA FUNÇÂO APONTA PARA EXPORTS E MODULE.EXPORTS
