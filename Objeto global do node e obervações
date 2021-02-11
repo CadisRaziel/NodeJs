@@ -1,0 +1,45 @@
+
+//criando o modulo que vai ter os objetos 
+
+// console.log(global)
+
+//muito cuidado com objetos global !!!!
+
+
+
+//qualquer outro arquivo tera acesso a MinhaApp
+global.MinhaApp = {
+    olaAmigo() {
+        return 'Estou te observando'
+    },
+    nome: 'Aqui é muito confortavel'
+}
+
+
+//para evitar que seja feitas alterações mesmo sendo global !!!
+global.MinhaApp2 = Object.freeze ({
+    olaAmigo() {
+        return 'Estou te observando'
+    },
+    nome: 'Aqui é muito confortavel'
+})
+
+
+//--------------------------------------------------
+//criando os modulos que serão importado o objeto global
+
+require('./global') //note que nem coloquei numa constante 
+
+console.log(MinhaApp.olaAmigo()) //esse é o modo correto
+// ou posso fazer assim sem precisar do require la em cima
+console.log(global.MinhaApp.olaAmigo()) //cuidado ao usar assim
+
+
+//cuidado que objetos globais podem ser modificados !!! 
+MinhaApp.nome = 'mudei'
+console.log(MinhaApp.nome)
+
+
+//com a utilização do freeze eu não consigo alterar mais
+MinhaApp2.nome = 'nao deu'
+console.log(MinhaApp2.nome)
