@@ -1,0 +1,35 @@
+// file system, ja vem integrado no node, para chama-lo basta fazer os seguintes passos
+const fs = require('fs')
+
+
+const caminho = __dirname + '/arquivo.json'
+
+
+//lendo o arquivo de forma sincrona( porém cuidado se for um arquivo muito pesado vai travar o IO (event loop)) (NAO RECOMENDAVEL PARA GRANDES ARQUIVOS)
+const conteudo = fs.readFileSync(caminho, 'utf-8') //lembre-se de por o utf-8
+console.log(conteudo)
+
+//lendo o arquivo de forma assincrona... (use o readFile) (Passando uma callback para quand o arquivo estiver sido carregado)
+fs.readFile(caminho, 'utf-8', (err, conteudo) => {
+    const config = JSON.parse(conteudo) //só vai funcionar se o config for um OBJETO !!
+    console.log(`${config.db.host}: ${config.db.port}`)
+})
+
+
+//-----------------------------
+//outro modo sem precisar o const fs = require('fs') >>>maneira mais simples<<<< FORMA ASSINCRONA 
+
+const config2 = require('./arquivo.json') //aqui ele ja converte para objeto
+console.log(config2.db)
+
+
+//-----------------------------
+//leitura de uma pasta
+
+fs.readdir(__dirname, (err, arquivos) => {
+    console.log('Conteudo da pasta')
+    console.log(arquivos)
+})
+
+// __dirname = uma constante presente em todos os arquivos do node(modulos) que representa o diretorio atual
+//readdir = diretorio 
