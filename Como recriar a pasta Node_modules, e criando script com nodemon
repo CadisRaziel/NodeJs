@@ -1,0 +1,58 @@
+// aula instalando deps e scripts
+
+iniciamos no package json (abrimos a pasta e colocamos "npn init" que vai mostar o relatorio abaixo para voce preencher)
+ele estava assim
+{
+  "name": "funcionarios",
+  "version": "1.0.0",
+  "description": "Aula sobre package json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vitor Brussolo zerbato",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
+
+
+//agora esta ficando assim depois das alterações
+
+{
+  "name": "funcionarios",
+  "version": "1.0.0",
+  "description": "Aula sobre package json",
+  "main": "funcionarios.js", //alteramos aqui de index para funcionarios, pois no modolo nao criamos o index
+  "scripts": {
+    "start": "nodemon", //adicionamos o start nodemon no scritps (para que o nodemon fique monitorando as mudanças e as executeas) [o arquivo funcionarios.js que vai chamar ele ]
+    "dev": "nodemon", // se eu definir o nodemon como "dev" nao vai dar certo pois o comando padrao é o start e o test (ou seja para esse comando funcionar deve escrever "npm run dev")
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vitor Brussolo zerbato",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
+
+//criando a pasta node_modules
+pasta colocar no terminal "npm init"
+lembre-se de instalar dentro da pasta do projeto
+Resumindo: 
+No terminal colocamos "npm i" para instalar a pasta node_modules
+o node_modules instala o axios, ou seja tudo que precisa para executar o axios esta disponivel dentro da pasta node_modules
+
+
+no script colocamos "start": "nodemon",
+em seguida no terminal colocamos o "npm start"
+
+//lembrando o nodemon vai atualizar os arquivos sozinho quando fizermos alguma alteração
+
+
+"test": "echo \"Error: no test specified\" && exit 1" => olhe o numero 1 (0 = sucesso / 1 = aconteceu um erro)
+
+
+
+https://docs.npmjs.com/cli/v7/commands
