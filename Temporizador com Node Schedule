@@ -1,0 +1,33 @@
+//iniciamos colocando no terminal o seguinte codigo "npm i node - schedule", pois é o pacote do temporizador
+//lembre-se que o node_module ja estava instalado, se não tivesse teriamos que instalar
+
+const schedule = require('node-schedule')
+
+const tarefa1 = schedule.scheduleJob('*/5 * 19 * * 2', function () {
+    console.log('Executando tarefa 1', new Date().getSeconds())
+}) 
+// */5 = de 5 em 5 segundos (5 = iria executar apenas no segundo 5)
+// * = qualquer minuto (minuto)
+// 19 = hora
+// * = qualquer dia do mes (dia)
+// * = qualquer mes (mes)
+// 2 = terça feira (0 domingo, 1 segundo, 2 terça feira)    
+
+
+//---------------------
+//temporizador padrao do js
+setTimeout(function () {
+    tarefa1.cancel()
+    console.log('Cancelando tarefa1')
+}, 20000)
+
+const regra = new schedule.RecurrenceRule()
+regra.dayOfWeek = [new schedule.Range(1, 5)] //1 = segunda, 5 = sexta ou seja de segunda a sexta
+regra.hour = 12 //sempre as 12 horas
+regra.second = 30 // no segundo 30
+
+
+//outro temporizador 
+const tarefa2 = schedule.scheduleJob(regra, function () {
+    console.log('Executando tarefa2', new Date().getSeconds())
+})
