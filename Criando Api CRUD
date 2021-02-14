@@ -1,0 +1,142 @@
+Criamos uma pasta chamada Projeto
+em seguida uma pasta SRC (SRC = CODIGO FONTE)
+
+
+instalamos os npm's
+(olhe as anotações a seguir deopis de criar as pastas)
+
+iniciamos no terminal
+criando o npm init 
+em seguida vamos instalar o express coloque npm i --save express@4.16.2 -E
+(--save express para salvar o express na pasta Projeto)
+(@4.16.2 = versão do express)
+(-E = vai focar somente na versão 4.16.2 não vai buscar atualização ou regredir)
+com isso veja que criou a pasta node_modules, package.json, package-lock.json
+
+
+
+instalamos tambem depois desse processo e de criar o codigo o nodemon pelo npm i --save-dev nodemon@2.0.7 -E
+e nos scripts colocamos ele.
+(lembrando nao queremos o nodemon no projeto final é só para teste)
+
+e em seguida colocamos npm start
+
+
+depois de escrever o codigo do BancoDeDados, nos colocamos no terminal "npm i --save body-parser" = vai fazer um parse no body da requisição
+
+
+
+//-----MODULO SERVIDOR.JS-------
+
+const porta = 3003
+
+//o express foi instalado com o npm
+const express = require('express')
+const app = express()
+const bodyParse = require('body-parser')
+const BancoDeDados = require('./BancoDeDados')
+
+app.use(bodyParse.urlencoded({ extended: true })) //qualquer requisiao que voce faça no servidor express, ele obrigatoriamente vai passar por esse midldleware,
+//e se no corpo da requisição tiver um padrao chamado urlencode(la no postman) quando chegar na aplicação vai aplicar o middleware e aplicar o parse e trasnformar em objeto !!
+//resumindo para todas requisição ele é disparado
+//e se o padrao for urlencode transforma o corpo da opção em objeto 
+
+
+//app.get('/produtos', (req, res, next) => {
+    //console.log('Middleware 1....')
+    //next() //repare que colocando o next aqui ele vai para o get abaixo
+//})
+
+
+//use = coloca o middle na requisao express e vai ser atendido para todas requisicoes(mesmo alterando o nome da url no postman)
+//app.use((req, res, next) => {
+    //res.send({nome: 'Notebook', preco: 123.45 }) //o metodo send converte para JSON automaticamente
+//})
+
+//app.get('/produtos', (req, res, next) => {
+    //res.send({nome: 'Notebook', preco: 123.45 }) //o metodo send converte para JSON automaticamente
+//})
+
+app.listen(porta, () => {
+    console.log(`Servidor executando na porta ${porta}.`)
+})
+
+
+// retornando o BancoDeDados.js
+//repare que ja coloquei la em cima  const BancoDados = require('./BancoDeDados')
+app.get('/produtos', (req, res, next) => {
+    res.send(BancoDeDados.getProdutos())
+})
+
+//importando com um parametro (/:id) ou seja vai trazer um produto especifico baseado no id
+app.get('/produtos/:id', (req, res, next) => {
+    res.send(BancoDeDados.getProduto(req.params.id))
+})
+
+app.post('/produtos', (req, res, next) => { 
+    const produto = BancoDeDados.salvarProduto({
+        nome: req.body.nome,
+        preco: req.body.preco
+    })
+    res.send(produto) //- vai converter em JSON para ir para webr
+})
+
+ //ou posso fazer o codigo acima dessa forma com o PUT
+ //ele vai alterar um registro que ja existe
+ //é só ir no postman, registrar um produto exemplo id: 1
+ //na url coloque http://localhost:3003/produtos/1
+ //e coloque outro produto e COLOQUE O VERBO PUT
+ //ele vai realizar a alteração
+ 
+ //app.put('/produtos/:id', (req, res, next) => { 
+    //const produto = BancoDeDados.salvarProduto({
+        //id: req.params.id,
+        //nome: req.body.nome,
+        //preco: req.body.preco
+  // })
+
+
+//para excluir produto usando o VERBO DELETE
+app.delete('/produtos/:id', (req, res, next) => { 
+    const produto = BancoDeDados.excluirProduto(req.params.id)
+    res.send(produto) // converte em json
+})
+
+
+
+//--MODULO BancoDeDados.js-----
+
+const sequence = {
+    _id: 1,
+    get id() {return this._id++}
+}
+
+const produtos = {}
+
+function salvarProduto(produto) {
+    if(!produto.id) produto.id = sequence.id
+    produtos[produto.id] = produto
+    return produto
+}
+
+function getProduto(id) {
+    return produtos[id] || {}
+}
+
+function getProdutos() {
+    return Object.values(produtos)
+}
+
+function excluirProduto(id) {
+    const produto = produtos[id]
+    delete produtos[id]
+    return produto
+}
+
+
+module.exports = { salvarProduto, getProduto, getProdutos, excluirProduto } //apenas essas 4 funções estara disponivel fora deste modulo !
+
+
+
+
+//e no Postman testamos como incluir produtos, alterar produtos, deletar produtos e salvar produtos.
