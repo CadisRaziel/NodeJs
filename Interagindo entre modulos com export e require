@@ -1,0 +1,60 @@
+Criei 3 modulos
+2 js e um txt
+
+1 modulo: (vai apresentar quantidade de memoria, quanto esta usando e porcentagem de uso), (tambem vai ser transferido todo resultado para o log.txt)
+
+const os = require('os') //OS é um comando nativo do node.js (acesse a documentação para ver)
+
+//exportando o logger.js
+const log = require('./logger')
+
+//console.log(os.platform()) para visualizar o sistema operacional em uso
+
+
+//para ficar atualizando a memoria e mostrando quanto tem usando etc..
+setInterval(() => {
+
+    //monitoramento de memoria
+    const { freemem, totalmem } = os
+    
+    const total = parseInt(totalmem() / 1024 / 1024)
+    const men = parseInt(freemem() / 1024 / 1024)
+    const percents = parseInt((men / total) * 100)
+    
+    const stats = {
+        free: `${men} MB`,
+        total: `${total} MB`,
+        usage: `${percents} %`
+    }
+         
+    console.log("--> PC STATS <--")
+    console.table(stats)    
+
+    log(`${JSON.stringify(stats)}\n`) //usando o log de logger.js para adicionar as informações no log.txt
+
+}, 1000)
+
+//----------------------------------------------------------------------------
+
+2 modulo: (criando o sistema que vai exibir as informações no log.txt)
+const EventEmitter = require('events')
+const fs = require('fs') //file system
+const path = require('path') // pega o arquivo no local exato
+
+const emitter = new EventEmitter()
+emitter.on('log', (message) => {
+    fs.appendFile(path.join(__dirname, 'log.txt'), message, err => {
+        if (err) throw err
+    })
+})
+
+
+function log(message) {
+    emitter.emit('log', message)    
+}
+
+module.exports = log
+
+//-------------------------------------------------------------------------------
+
+3 modulo: um txt criado para armazenar as informações (log.txt)
