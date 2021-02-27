@@ -1,0 +1,34 @@
+const express = require('express')
+const app = express() 
+const port = 5000
+
+
+//OBS:
+// "/" => rota inicial
+// só podemos enviar o "send" apenas 1 vez
+app.get("/", function (req, res) {
+    res.send("Welcome bro")
+}) 
+
+app.get("/blog", function (req, res) {
+    res.send("Welcome to blog")
+})
+
+app.get("/youtube/:canal", function (req, res) {
+    res.send("Welcome on my channel")
+})
+
+
+
+
+app.listen(port, function(erro){
+    if(erro){
+        console.log("Connection error!")
+    } else {
+        console.log(`The server is running on the port ${port}`)
+    }
+})
+
+npm init => iniciando o projeto
+npm i express --save => instalando o express
+npm i nodemon -g => intalando o nodemon globalmente (-g) para atualizar automaticamente quando for feito alguma alteração
