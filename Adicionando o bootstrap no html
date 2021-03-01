@@ -1,0 +1,40 @@
+Primeiro baixamos o bootstrap
+e jogamos a pasta css e js dentro do nosso projeto na pasta "public"
+
+repare que colocamos ele depois do link css aqui no head 
+em seguida fomos ao site na parte de download e pegamos o codigo jsDelivr e colamos depois do body como eu escrevi no comentario la em baixo !!! (leia ele)
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevengeTatto</title>
+    <!-- quando usamos express não precisamos por a pasta public e depois a pasta css, subistitua o public por "/"-->
+    <!-- o express ja vai automaticamente entrar na pasta public -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Importando o bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Estilo do bootstrap</h1>
+</body>
+
+<!-- Esses arquivos foram pegos e copiados dessa pagina: -->
+<!-- https://getbootstrap.com/docs/4.5/getting-started/download/-->
+<!-- no jsDelivr, repare que pegamos apenas dois codigo (o jquery e o npm popper o ultimo nós apagamos e no lugar colocamos <script src="/js/bootstrap.min.js"></script> )-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</html>
