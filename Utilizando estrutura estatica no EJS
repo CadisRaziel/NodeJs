@@ -1,0 +1,109 @@
+modulo app.js
+
+
+
+
+const express = require('express')
+const app = express()
+const port = 5000
+
+
+//estou dizendo para o Express usar o EJS como view engine
+app.set('view engine', 'ejs')
+
+
+//================REPARE AQUIIIII !!!!! ======================================
+//================E O CODIGO UTILIZADO PARA POR ESTRUTURA ESTATICA!!!!
+//utilizando arquivos estaticos "('public') é o nome da pasta" [é para que aceite css, js front end, imagens etc..]
+app.use(express.static('public'))
+//============================================================================
+
+app.get("/:nome/:lang", (req, res) => {
+    // let nome = "Vitor"
+    // let lang = "JavaScript"
+    let nome = req.params.nome
+    let lang = req.params.lang
+    let exibirMsg = true
+
+    let produtos = [
+        {nome: "Doritos", preco: 3.14},
+        {nome: "Fandangos", preco: 1.20},
+        {nome: "Cebolitos", preco: 5.40},
+        {nome: "Coca-Cola", preco: 9.70}
+    ]
+    res.render("index", {
+        nome: nome,
+        lang: lang,
+        msg: exibirMsg,
+        produtos: produtos        
+    })
+})
+
+
+
+app.listen(port, function(erro){
+    if(erro){
+        console.log("Connection error!")
+    } else {
+        console.log(`The server is running on the port ${port}`)
+    }
+})
+
+module.exports = { app }
+
+
+
+//===============================================================
+
+index.ejs
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevengeTatto</title>
+    
+    //======================== AQUI ESTA O CSS !!! ===============================
+    <!-- quando usamos express não precisamos por a pasta public e depois a pasta css, subistitua o public por "/"-->
+    <!-- o express ja vai automaticamente entrar na pasta public -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+</head>
+<body>
+    <h1>Welcome to Revenge Tatto</h1>
+    <hr>
+    <h3><i>Pagina sobre perguntas e respostas</i></h3>
+
+
+    <!-- <%= %> = exibir valor da variavel !!-->
+    <!-- Somente quando vou pegar valor de variavel eu uso "="-->
+    <p>Nome: <%= nome %> </p>
+    <p>Linguagem: <%= lang %></p>
+    
+    <!-- repare que nao tem o "="-->
+    <!-- o "=" como esta ali em cima, ele só serve para pegar o valor de uma variavel !!!!-->
+    <% if(msg) { %>
+        <h3>Isso é uma mensagem de erro</h3>
+    <%} else { %>
+        <h3>Erro</h3>
+    <% } %> 
+
+
+    <!-- Usando o foreach -->
+    <% produtos.forEach(function(produto) { %>
+        <hr> 
+        <h3><%= produto.nome %></h3>      
+        <i><strong></b>R$ <%= produto.preco %></i></strong>
+    <% }) %>
+
+    <hr>
+
+
+    //================= AQUI ESTOU UTILIZANDO UMA IMAGEM !!! ============================
+    <h2>Vegeta</h2>
+    <img src="/img/vegeta.jpg" alt="">
+</body>
+</html>
