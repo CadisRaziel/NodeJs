@@ -1,0 +1,69 @@
+>>>app.ts<<<<
+
+
+const express = require('express')
+const app = express()
+const port = 5000
+const bodyParse = require('body-parser')
+const connection = require("./database/database")
+
+//database connection 
+connection.authenticate()
+    .then(() => {
+        console.log('Conexão com a database online')
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
+//estou dizendo para o Express usar o EJS como view engine
+app.set('view engine', 'ejs')
+
+//utilizando arquivos estaticos "('public') é o nome da pasta" [é para que aceite css, js front end, imagens etc..]
+app.use(express.static('public'))
+
+//adicionando o body parse para ver os itens no console
+app.use(bodyParse.urlencoded({ extended: true }))
+
+//lendo dados de formularios enviados via json(mais usado para api)
+app.use(bodyParse.json())
+
+
+app.get("/", (req, res) => {
+    res.render("index")       
+})
+
+app.get("/perguntar", (req, res) => {
+    res.render("perguntar")
+})
+
+app.post("/salvarpergunta", (req, res) => {
+    const titulo = req.body.titulo
+    const descricao = req.body.descricao
+    res.send(`Formulário recebido, titulo: ${titulo} e descrição: ${descricao}`)
+})
+
+app.listen(port, function(erro){
+    if(erro){
+        console.log("Connection error!")
+    } else {
+        console.log(`The server is running on the port ${port}`)
+    }
+})
+
+module.exports = { app }
+
+
+
+
+CRIAMOS UMA PASTA DATABASE NA RAIZ DO PROJETO E DENTRO COLOCAMOS UM ARQUIVO DATABASE.JS
+//conexão com o database usando sequelize(bem simples né)
+
+const Sequelize = require('sequelize')
+
+const connection = new Sequelize('guiaperguntas', 'root', 'rhythms', {
+    host: 'localhost',
+    dialect: 'mysql'
+})
+
+module.exports = connection
