@@ -1,0 +1,78 @@
+dentro do modulo database criei um arquivo Pergunta.js é aonde vai ser criada a tabela
+
+const Sequelize = require('sequelize')
+const connection = require('./database')
+
+const Pergunta = connection.define('perguntas', {
+    titulo:{
+        type: Sequelize.STRING, //STRING = para textos curtos
+        allowNull: false //impede que o campo receba valor nulo
+    },
+    descricao: {
+        type: Sequelize.TEXT, //TEXT = para textos longos
+        allowNull: false //impede que o campo receba valor nulo
+    }
+})
+
+Pergunta.sync({force: false}) //sincroniza o que esta acima com a database
+    .then(() => {}) //o then é executado quando a tabela é criada(lembra que é uma promise)
+//ou seja se na database nao exista uma tabela pergunta, ele vai criar 
+//force:false = não vai força a criação da tabela caso ela ja exista (não vai recriar)
+
+
+
+
+e no app.ts eu importei esse arquivo Pergunta.js para que ele funcione
+
+const express = require('express')
+const app = express()
+const port = 5000
+const bodyParse = require('body-parser')
+const connection = require("./database/database")
+const perguntaModel = require('./database/Pergunta') <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
+
+//database connection 
+connection.authenticate()
+    .then(() => {
+        console.log('Conexão com a database online')
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
+//estou dizendo para o Express usar o EJS como view engine
+app.set('view engine', 'ejs')
+
+//utilizando arquivos estaticos "('public') é o nome da pasta" [é para que aceite css, js front end, imagens etc..]
+app.use(express.static('public'))
+
+//adicionando o body parse para ver os itens no console
+app.use(bodyParse.urlencoded({ extended: true }))
+
+//lendo dados de formularios enviados via json(mais usado para api)
+app.use(bodyParse.json())
+
+
+app.get("/", (req, res) => {
+    res.render("index")       
+})
+
+app.get("/perguntar", (req, res) => {
+    res.render("perguntar")
+})
+
+app.post("/salvarpergunta", (req, res) => {
+    const titulo = req.body.titulo
+    const descricao = req.body.descricao
+    res.send(`Formulário recebido, titulo: ${titulo} e descrição: ${descricao}`)
+})
+
+app.listen(port, function(erro){
+    if(erro){
+        console.log("Connection error!")
+    } else {
+        console.log(`The server is running on the port ${port}`)
+    }
+})
+
+module.exports = { app }
