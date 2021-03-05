@@ -1,0 +1,7 @@
+inicie o projeto instalando as bibliotecas necessarias de inicio:
+1º npm init
+2º npm i --save express
+3º npm i --save sequelize
+4º npm i --save mysql2
+5º npm i --save body-parser
+6º npm i --save ejs
