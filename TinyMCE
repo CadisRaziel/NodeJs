@@ -1,0 +1,7 @@
+instalando o TinyMCE (Site: https://www.tiny.cloud/get-tiny/self-hosted/) <- esse site não tem na pagina do tiny(porém é do tiny)
+para baixar a tradução do tinymce para deixar em portugues: https://www.tiny.cloud/get-tiny/language-packages/
+em seguida clique na linguagem que quer e ele vai baxiar um arquivo zip
+dentro do arquivo vai te uma pasta "langs" entre nela e vai ter o arquivo de tradução
+em seguida copie o arquivo e cole dentro da pasta tinymc tem a pasta langs cole o arquivo la
+(obs: o arquivo do tinymc ja deve estar dentro do projeto)
+
