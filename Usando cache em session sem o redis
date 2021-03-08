@@ -1,0 +1,37 @@
+const session = require('express-session')
+
+
+
+//Sessions
+app.use(session({
+    secret: "mnbvpoijqwefdal",
+    cookie: { maxAge: 60000000 } //maxage = o tempo que a sessao vai ficar logado no servidor esta em milesegundos e depois expirar
+//(lembre-se toda vez que o servidor reiniciar as sessoes)
+}))
+
+
+//===========================================
+//lembrando que sessão é algo global na nossa aplicação
+//rota session(apagar depois)
+app.get("/session", (req, res) => {
+    req.session.treinamento = "formação NodeJS"
+    req.session.ano = 2021
+    req.session.email = "teste@test1.com"
+    req.session.user = {
+        username: "teste",
+        email: "teste@test1.com",
+        id: 10
+    }
+    res.send("sessão gerada")
+})
+
+//rota session leitura(apagar depois)
+app.get("/leitura", (req, res) => {
+    res.json({
+        treinamento: req.session.treinamento,
+        ano: req.session.ano,
+        email: req.session.email,
+        user: req.session.user     
+    })
+})
+//===========================================
