@@ -1,0 +1,58 @@
+const fs = require('fs');
+
+// fs.readFile("./usuario.json", {encoding: 'utf-8'}, (erro, dados) => {
+//     if(erro){
+//         console.log("Ocorreu um erro")
+//     }else {
+//         let conteudo = JSON.parse(dados) //convertendo o JSON em objeto Javascript
+
+//         conteudo.nome = 'Ari' // com a conversão eu posso alterar o nome !!  porém no json não é alterado
+//         conteudo.curso = 'React-Native'
+
+//         //para alterar aqui e no json fazemos isso
+//         //com isso tudo que for alterado acima, esse codigo abaixo vai la no json e vai alterar no JSON
+//         fs.writeFile("./usuario.json", JSON.stringify(conteudo), (erro) => {
+//             if(erro) {
+//                 console.log("Um erro aconteceu durante a escrita")
+//             }
+//         })
+        
+//     }
+// })
+
+//JSON.parse = converte de texto para objeto javascript
+//JSON.stringify = converte de Objeto javascript para texto
+
+
+//==================================
+//colocando o codigo acima dentro de uma função
+
+function ModificarUsuario(nome, curso, categoria){
+    //readfile = leitura do arquivo
+    fs.readFile("./usuario.json", {encoding: 'utf-8'}, (erro, dados) => {
+    if(erro){
+        console.log("Ocorreu um erro")
+    }else {
+        let conteudo = JSON.parse(dados) //convertendo o JSON em objeto Javascript
+
+        conteudo.nome = nome
+        conteudo.curso = curso
+        conteudo.categoria = categoria
+
+        //writefile = escrever no arquivo
+        //para alterar aqui e no json fazemos isso
+        //com isso tudo que for alterado acima, esse codigo abaixo vai la no json e vai alterar no JSON
+        fs.writeFile("./usuario.json", JSON.stringify(conteudo), (erro) => {
+            if(erro) {
+                console.log("Um erro aconteceu durante a escrita")
+            }
+        })
+        
+    }
+})
+}
+//olhe no arquivo json e veja que tudo foi alterado
+ModificarUsuario("Giovanna", "PHP do jeito certo", "PHP" )
+
+//JSON.parse = converte de texto para objeto javascript
+//JSON.stringify = converte de Objeto javascript para texto
