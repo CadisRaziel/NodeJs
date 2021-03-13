@@ -1,0 +1,10 @@
+//escrevendo arquivo no nodejs
+const fs = new require("fs")
+
+fs.writeFile("./vitor","Novo conteudo do arquivo vitor", (err) => {
+    if(err){
+        console.log("Erro durante o salvamento")
+    }
+})
+
+//abra o arquivo vitor e olhe como foi alterado tudo que estava la por "novo conteudo do arquivo vitor  "
